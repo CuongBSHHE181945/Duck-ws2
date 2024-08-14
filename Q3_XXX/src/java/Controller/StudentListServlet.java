@@ -79,7 +79,13 @@ public class StudentListServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        String majorId = request.getParameter("majorId");
+        StudentDAO sd = new StudentDAO();
+        if (majorId!=null){
+            ArrayList<Student> studentListByMajor = sd.findByMajorId(majorId);
+            request.setAttribute("studentListByMajor", studentListByMajor);
+        }
+        doGet(request, response);
     }
 
     /** 
